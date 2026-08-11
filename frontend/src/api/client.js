@@ -1,4 +1,6 @@
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+// Ruta relativa por defecto: pasa por el proxy de Vite (ver vite.config.js)
+// en vez de asumir que el navegador puede llegar directo a localhost:4000.
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 let token = null;
 export function setToken(t) {

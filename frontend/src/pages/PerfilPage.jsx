@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import Avatar from '../components/Avatar';
 import { useAuth } from '../context/AuthContext';
 import { useDatos } from '../context/DataContext';
+import { useVista } from '../context/ViewModeContext';
+
+const ETIQUETA_VISTA = { auto: 'Automático', movil: 'Móvil', escritorio: 'Escritorio' };
 
 export default function PerfilPage() {
   const { usuario, logout } = useAuth();
   const { tareas } = useDatos();
   const navigate = useNavigate();
   const [vistaDefecto, setVistaDefecto] = useState('lista');
+  const { preferencia, alternarPreferencia } = useVista();
 
   const perfil = useMemo(() => {
     const mias = tareas.filter((t) => t.asignadoId === usuario?.id);
@@ -29,6 +33,7 @@ export default function PerfilPage() {
     { label: 'Notificaciones', valor: 'Activadas', color: 'var(--tf-green)' },
     { label: 'Idioma', valor: 'Español', color: 'var(--tf-muted)' },
     { label: 'Vista de tareas por defecto', valor: vistaDefecto === 'kanban' ? 'Kanban' : 'Lista', color: 'var(--tf-indigo)', onClick: () => setVistaDefecto((v) => (v === 'kanban' ? 'lista' : 'kanban')) },
+    { label: 'Vista de la app (mobile/escritorio)', valor: ETIQUETA_VISTA[preferencia], color: 'var(--tf-indigo)', onClick: alternarPreferencia },
     { label: 'Ayuda y soporte', valor: '›', color: 'var(--tf-faint)' }
   ];
 

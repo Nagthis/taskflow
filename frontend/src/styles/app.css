@@ -55,6 +55,7 @@
 /* ---------- Topbar + nav ---------- */
 .topbar { position: sticky; top: 0; z-index: 30; background: var(--tf-bg); border-bottom: 1px solid var(--tf-border); }
 .topbar-inner { max-width: 560px; margin: 0 auto; padding: 11px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
 .brand { display: flex; align-items: center; gap: 9px; }
 
 .bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; background: var(--tf-card); border-top: 1px solid var(--tf-border); z-index: 25; box-shadow: 0 -2px 12px var(--tf-sh-b); }
@@ -241,87 +242,100 @@
 .state-loading { display: flex; align-items: center; justify-content: center; min-height: 60vh; color: var(--tf-muted); }
 
 /* ==================================================================
-   Escritorio (≥900px). La app sigue siendo la misma mobile-first de
-   arriba; acá solo se reacomoda: sidebar en vez de barra inferior,
-   más columnas, y el formulario como diálogo centrado en vez de
-   pantalla completa.
+   Escritorio. La app sigue siendo la misma mobile-first de arriba;
+   acá solo se reacomoda: sidebar en vez de barra inferior, más
+   columnas, y el formulario como diálogo centrado en vez de pantalla
+   completa.
+
+   Se activa con [data-tf-vista="escritorio"] en <html> — NO por media
+   query directo. Ese atributo lo pone ViewModeContext: en preferencia
+   "auto" lo resuelve según el ancho real de la ventana (con
+   matchMedia), y en preferencia "movil"/"escritorio" lo fuerza sin
+   importar el ancho, para poder exhibir ambos layouts desde un botón
+   (ver BotonVista) tal como el modo claro/oscuro.
    ================================================================== */
 
 .sidebar { display: none; }
 .topbar-new-btn { display: none; }
 
-@media (min-width: 900px) {
-  .app-shell { display: flex; align-items: flex-start; }
+/* Si se fuerza "escritorio" en una ventana real angosta (p. ej. para
+   demostrarlo desde un celular), preferimos scroll horizontal antes que
+   aplastar el sidebar y las columnas hasta volverlas ilegibles. */
+:root[data-tf-vista="escritorio"] { overflow-x: auto; }
+:root[data-tf-vista="escritorio"] .app-shell { display: flex; align-items: flex-start; min-width: 900px; }
 
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 248px;
-    flex: 0 0 248px;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    padding: 20px 16px;
-    border-right: 1px solid var(--tf-border);
-    background: var(--tf-card);
-  }
-  .sidebar-brand { padding: 0 8px; margin-bottom: 22px; }
-  .sidebar-new-btn {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    border: none; border-radius: 12px; background: var(--tf-indigo); color: #fff;
-    font-weight: 700; font-size: 14px; padding: 12px; cursor: pointer; margin-bottom: 20px;
-    box-shadow: 0 6px 16px rgba(79, 70, 229, .22);
-  }
-  .sidebar-new-btn:hover { background: var(--tf-indigo-hi); }
-  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-  .sidebar-nav-link {
-    display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px;
-    color: var(--tf-text2); font-size: 14.5px; font-weight: 500;
-  }
-  .sidebar-nav-link:hover { background: var(--tf-subtle); text-decoration: none; }
-  .sidebar-nav-link--active { background: var(--tf-indigo-soft); color: var(--tf-indigo); font-weight: 700; }
-  .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 12px 8px 4px; border-top: 1px solid var(--tf-line); margin-top: 12px; }
-  .sidebar-user-info { min-width: 0; }
-  .sidebar-user-name { font-size: 13.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sidebar-user-role { font-size: 12px; color: var(--tf-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sidebar-logout { margin: 8px 8px 0; padding: 9px; border: none; background: none; color: var(--tf-late-fg); font-size: 13px; font-weight: 500; cursor: pointer; text-align: left; border-radius: 8px; }
-  .sidebar-logout:hover { background: var(--tf-red-bg); }
+:root[data-tf-vista="escritorio"] .sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 248px;
+  flex: 0 0 248px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 20px 16px;
+  border-right: 1px solid var(--tf-border);
+  background: var(--tf-card);
+}
+:root[data-tf-vista="escritorio"] .sidebar-brand { padding: 0 8px; margin-bottom: 22px; }
+:root[data-tf-vista="escritorio"] .sidebar-new-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  border: none; border-radius: 12px; background: var(--tf-indigo); color: #fff;
+  font-weight: 700; font-size: 14px; padding: 12px; cursor: pointer; margin-bottom: 20px;
+  box-shadow: 0 6px 16px rgba(79, 70, 229, .22);
+}
+:root[data-tf-vista="escritorio"] .sidebar-new-btn:hover { background: var(--tf-indigo-hi); }
+:root[data-tf-vista="escritorio"] .sidebar-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+:root[data-tf-vista="escritorio"] .sidebar-nav-link {
+  display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 12px;
+  color: var(--tf-text2); font-size: 14.5px; font-weight: 500;
+}
+:root[data-tf-vista="escritorio"] .sidebar-nav-link:hover { background: var(--tf-subtle); text-decoration: none; }
+:root[data-tf-vista="escritorio"] .sidebar-nav-link--active { background: var(--tf-indigo-soft); color: var(--tf-indigo); font-weight: 700; }
+:root[data-tf-vista="escritorio"] .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 12px 8px 4px; border-top: 1px solid var(--tf-line); margin-top: 12px; }
+:root[data-tf-vista="escritorio"] .sidebar-user-info { min-width: 0; }
+:root[data-tf-vista="escritorio"] .sidebar-user-name { font-size: 13.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+:root[data-tf-vista="escritorio"] .sidebar-user-role { font-size: 12px; color: var(--tf-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+:root[data-tf-vista="escritorio"] .sidebar-logout { margin: 8px 8px 0; padding: 9px; border: none; background: none; color: var(--tf-late-fg); font-size: 13px; font-weight: 500; cursor: pointer; text-align: left; border-radius: 8px; }
+:root[data-tf-vista="escritorio"] .sidebar-logout:hover { background: var(--tf-red-bg); }
 
-  .main-area { flex: 1; min-width: 0; }
+:root[data-tf-vista="escritorio"] .main-area { flex: 1; min-width: 0; }
 
-  .topbar-brand-mobile { display: none; }
-  .topbar-inner { justify-content: flex-end; padding: 16px 32px; }
-  .topbar-actions { display: flex; align-items: center; gap: 12px; }
-  .topbar-new-btn { display: inline-flex; align-items: center; gap: 6px; width: auto; padding: 10px 16px; font-size: 14px; }
+:root[data-tf-vista="escritorio"] .topbar-brand-mobile { display: none; }
+:root[data-tf-vista="escritorio"] .topbar-inner { justify-content: flex-end; padding: 16px 32px; }
+:root[data-tf-vista="escritorio"] .topbar-actions { display: flex; align-items: center; gap: 12px; }
+:root[data-tf-vista="escritorio"] .topbar-new-btn { display: inline-flex; align-items: center; gap: 6px; width: auto; padding: 10px 16px; font-size: 14px; }
 
-  /* Columna central angosta (estilo dashboard de escritorio) en vez de
-     estirar cada tarjeta a lo ancho de la ventana; evita tener que acotar
-     el máximo de cada sección por separado. */
-  .content { max-width: 760px; margin: 0 auto; padding: 8px 32px 48px; }
-  .content--form { max-width: 100%; padding: 0; }
+/* Columna central angosta (estilo dashboard de escritorio) en vez de
+   estirar cada tarjeta a lo ancho de la ventana; evita tener que acotar
+   el máximo de cada sección por separado. */
+:root[data-tf-vista="escritorio"] .content { max-width: 760px; margin: 0 auto; padding: 8px 32px 48px; }
+:root[data-tf-vista="escritorio"] .content--form { max-width: 100%; padding: 0; }
 
-  .fab-wrap, .bottom-nav { display: none; }
-  .logout-btn { display: none; } /* ya está en el sidebar */
+:root[data-tf-vista="escritorio"] .fab-wrap,
+:root[data-tf-vista="escritorio"] .bottom-nav { display: none; }
+:root[data-tf-vista="escritorio"] .logout-btn { display: none; } /* ya está en el sidebar */
 
-  .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+:root[data-tf-vista="escritorio"] .kpi-grid { grid-template-columns: repeat(4, 1fr); }
 
-  .task-list { display: grid; grid-template-columns: repeat(2, 1fr); align-items: start; gap: 14px; }
-  .kanban-col { flex-basis: 300px; min-width: 300px; }
+:root[data-tf-vista="escritorio"] .task-list { display: grid; grid-template-columns: repeat(2, 1fr); align-items: start; gap: 14px; }
+:root[data-tf-vista="escritorio"] .kanban-col { flex-basis: 300px; min-width: 300px; }
 
-  /* El formulario pasa de pantalla completa a diálogo centrado */
-  .modal-overlay {
-    background: rgba(15, 17, 21, .55);
-    display: flex; align-items: flex-start; justify-content: center;
-    padding: 56px 24px;
-  }
-  .modal-overlay .content--form {
-    background: var(--tf-card); border-radius: 20px; width: 100%; max-width: 560px;
-    padding: 24px 28px 32px; box-shadow: 0 24px 64px var(--tf-sh-f);
-    max-height: calc(100vh - 112px); overflow-y: auto;
-  }
+/* El formulario pasa de pantalla completa a diálogo centrado */
+:root[data-tf-vista="escritorio"] .modal-overlay {
+  background: rgba(15, 17, 21, .55);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 56px 24px;
+}
+:root[data-tf-vista="escritorio"] .modal-overlay .content--form {
+  background: var(--tf-card); border-radius: 20px; width: 100%; max-width: 560px;
+  padding: 24px 28px 32px; box-shadow: 0 24px 64px var(--tf-sh-f);
+  max-height: calc(100vh - 112px); overflow-y: auto;
 }
 
+/* Ventanas bien anchas: aprovecha el espacio extra si además el ancho
+   real lo permite (esto sí puede seguir siendo un media query normal,
+   es solo un ajuste fino dentro del modo escritorio). */
 @media (min-width: 1200px) {
-  .content { max-width: 960px; }
-  .task-list { grid-template-columns: repeat(3, 1fr); }
+  :root[data-tf-vista="escritorio"] .content { max-width: 960px; }
+  :root[data-tf-vista="escritorio"] .task-list { grid-template-columns: repeat(3, 1fr); }
 }

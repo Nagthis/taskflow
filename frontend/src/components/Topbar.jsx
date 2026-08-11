@@ -1,4 +1,5 @@
 import BotonTema from './BotonTema';
+import BotonVista from './BotonVista';
 import { IconoMas } from './Icons';
 import { MarcaChica } from './Marca';
 
@@ -15,6 +16,7 @@ export default function Topbar({ onNuevaTarea, mostrarNuevaTarea }) {
               <IconoMas size={16} /> Nueva tarea
             </button>
           )}
+          <BotonVista />
           <BotonTema />
         </div>
       </div>

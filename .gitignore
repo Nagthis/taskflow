@@ -1,0 +1,26 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno con secretos/credenciales locales
+.env
+.env.local
+.env.*.local
+
+# Builds
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Artefactos de WSL/Windows (alternate data streams al copiar desde NTFS)
+*:Zone.Identifier
+*:SmartScreen
+
+# Editor / SO
+.vscode/
+.DS_Store
+
+# Configuración local de Claude Code (específica de esta máquina)
+.claude/settings.local.json

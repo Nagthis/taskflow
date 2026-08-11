@@ -1,0 +1,51 @@
+/* Paleta de TaskFlow — tomada tal cual del prototipo de Claude Design.
+   El atributo data-tf-tema en <html> alterna entre claro y oscuro. */
+
+:root {
+  --tf-bg: #F5F6F8; --tf-card: #FFFFFF; --tf-field: #FFFFFF; --tf-text: #101828; --tf-text2: #344054;
+  --tf-text3: #475467; --tf-muted: #667085; --tf-faint: #98A2B3; --tf-line: #F2F4F7; --tf-border: #EAECF0;
+  --tf-border2: #D0D5DD; --tf-subtle: #F9FAFB; --tf-disabled: #E4E7EC;
+  --tf-indigo: #4F46E5; --tf-indigo-hi: #4338CA; --tf-indigo-soft: #EEF2FF; --tf-indigo-brd: #C7D2FE;
+  --tf-pend-bg: #FCE7F3; --tf-pend-fg: #9D174D; --tf-prog-bg: #EDE9FE; --tf-prog-fg: #5B21B6;
+  --tf-done-bg: #DCFCE7; --tf-done-fg: #166534; --tf-late-bg: #FEE2E2; --tf-late-fg: #B42318;
+  --tf-red-bg: #FEF3F2; --tf-red-brd: #FECDCA; --tf-red-solid: #D92D20; --tf-red-line: #F04438;
+  --tf-amber-bg: #FEF3C7; --tf-amber-fg: #92400E; --tf-amber-brd: #FDE68A;
+  --tf-warn-bg: #FFFAEB; --tf-warn-brd: #FEDF89; --tf-warn-fg: #B54708;
+  --tf-green-bg: #ECFDF3; --tf-green-brd: #A6F4C5; --tf-green: #12B76A;
+  --tf-violet-bg: #F5F3FF; --tf-violet-brd: #DDD6FE; --tf-violet: #7C3AED;
+  --tf-col-bg: #EFF1F4; --tf-col-brd: #E2E5EA; --tf-orange: #F79009;
+  --tf-toast-bg: #101828; --tf-toast-fg: #FFFFFF; --tf-on-accent: #FFFFFF;
+  --tf-sh-a: rgba(16, 24, 40, .04); --tf-sh-b: rgba(16, 24, 40, .05); --tf-sh-c: rgba(16, 24, 40, .06);
+  --tf-sh-d: rgba(16, 24, 40, .08); --tf-sh-e: rgba(16, 24, 40, .1); --tf-sh-f: rgba(16, 24, 40, .3);
+  color-scheme: light;
+}
+
+:root[data-tf-tema="oscuro"] {
+  --tf-bg: #0F1115; --tf-card: #191C22; --tf-field: #14171C; --tf-text: #E9EAEE; --tf-text2: #C3C8D2;
+  --tf-text3: #AEB5C1; --tf-muted: #97A0AE; --tf-faint: #6E7684; --tf-line: #23262E; --tf-border: #2A2E37;
+  --tf-border2: #383D48; --tf-subtle: #1F232A; --tf-disabled: #2E323B;
+  --tf-indigo: #6366F1; --tf-indigo-hi: #4F46E5; --tf-indigo-soft: #262552; --tf-indigo-brd: #4338CA;
+  --tf-pend-bg: #3A1D2C; --tf-pend-fg: #F9A8D4; --tf-prog-bg: #2A2450; --tf-prog-fg: #C4B5FD;
+  --tf-done-bg: #12321F; --tf-done-fg: #86EFAC; --tf-late-bg: #3B1A1A; --tf-late-fg: #FCA5A5;
+  --tf-red-bg: #2A1616; --tf-red-brd: #4A2422; --tf-red-solid: #EF4444; --tf-red-line: #F87171;
+  --tf-amber-bg: #33260F; --tf-amber-fg: #FCD34D; --tf-amber-brd: #4A3714;
+  --tf-warn-bg: #2A2110; --tf-warn-brd: #4A3714; --tf-warn-fg: #FBBF24;
+  --tf-green-bg: #10301E; --tf-green-brd: #1E5637; --tf-green: #34D399;
+  --tf-violet-bg: #221E44; --tf-violet-brd: #3D3574; --tf-violet: #A78BFA;
+  --tf-col-bg: #15181D; --tf-col-brd: #262A33; --tf-orange: #FBBF24;
+  --tf-toast-bg: #E9EAEE; --tf-toast-fg: #14171C; --tf-on-accent: #14171C;
+  --tf-sh-a: rgba(0, 0, 0, .3); --tf-sh-b: rgba(0, 0, 0, .35); --tf-sh-c: rgba(0, 0, 0, .4);
+  --tf-sh-d: rgba(0, 0, 0, .45); --tf-sh-e: rgba(0, 0, 0, .5); --tf-sh-f: rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+
+html, body { margin: 0; padding: 0; background: var(--tf-bg); }
+* { box-sizing: border-box; }
+body { font-family: 'DM Sans', system-ui, -apple-system, sans-serif; color: var(--tf-text); font-size: 15px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+a { color: var(--tf-indigo); text-decoration: none; }
+a:hover { color: var(--tf-indigo-hi); text-decoration: underline; }
+input, textarea, select, button { font-family: inherit; font-size: inherit; }
+::placeholder { color: var(--tf-faint); }
+button { -webkit-tap-highlight-color: transparent; }
+
+@keyframes tfUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

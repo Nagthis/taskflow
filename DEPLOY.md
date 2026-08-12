@@ -1,5 +1,9 @@
 # Desplegar TaskFlow en internet (gratis)
 
+> **Ya desplegado.** Frontend: https://taskflow-nu-lac.vercel.app · Backend:
+> https://taskflow-z3ny.onrender.com · Código: https://github.com/Nagthis/taskflow
+> Esta guía queda para referencia (p. ej. si hay que recrear el entorno).
+
 Tres servicios, todos con plan gratuito y sin tarjeta de crédito para lo
 que necesitamos:
 

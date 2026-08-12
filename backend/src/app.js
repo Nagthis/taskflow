@@ -9,7 +9,18 @@ const { notFound, errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
-app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
+// CORS_ORIGIN acepta uno o varios orígenes separados por coma (útil para
+// permitir a la vez el dev local y el dominio de producción del frontend).
+const origenesPermitidos = (process.env.CORS_ORIGIN || '*')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: origenesPermitidos.includes('*') ? '*' : origenesPermitidos
+  })
+);
 app.use(express.json());
 
 app.get('/api/salud', (req, res) => res.json({ ok: true, servicio: 'taskflow-backend' }));
